@@ -1,0 +1,78 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Category {
+  name: String!
+  categoryPerformers: [Performer!]!
+}
+
+type Performer {
+  name: String!
+  age: Int!
+  user: User!
+  category: Category!
+}
+
+type User {
+  email: String!
+  username: String!
+  password: String!
+  name: String!
+  surname: String
+  userPerformers: [Performer!]!
+}
+
+type LoginAdminDTO {
+  email: String!
+  username: String!
+  password: String!
+}
+
+type CategoryDTO {
+  name: String!
+}
+
+type PerformerDTO {
+  performerName: String!
+  performerAge: Int!
+  categoryName: String!
+}
+
+type Query {
+  loginAdmin(input: LoginAdminInput!): LoginAdminDTO!
+  getPerformersCategories: [CategoryDTO!]!
+  getPerformers: [PerformerDTO!]!
+}
+
+input LoginAdminInput {
+  email: String
+  username: String
+  password: String!
+}
+
+type Mutation {
+  createAdmin(input: CreateAdminInput!): LoginAdminDTO!
+  createCategory(input: CreateCategoryInput!): CategoryDTO!
+  createPerformer(input: CreatePerfomerInput!): PerformerDTO!
+}
+
+input CreateAdminInput {
+  name: String!
+  surname: String!
+  email: String!
+  username: String!
+  password: String!
+}
+
+input CreateCategoryInput {
+  name: String!
+}
+
+input CreatePerfomerInput {
+  name: String!
+  age: Int!
+  userId: Int!
+  categoryId: Int!
+  categoryName: String!
+}

@@ -40,17 +40,7 @@ class ConfigService {
       database: this.getEnvValue('MYSQL_DATABASE'),
       synchronize: true,
       logging: true,
-
-      entities: ['dist/**/*.entity.{ts,js}'],
-
-      migrationsTableName: 'migration',
-
-      migrations: ['src/migration/*.ts'],
-
-      cli: {
-        migrationsDir: 'src/migration',
-      },
-
+      entities: [__dirname + './../models/**/*.entity{.ts,.js}'],
       ssl: this.isProduction(),
     };
   }
