@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.7"
 
 services:
   main:
@@ -10,35 +10,34 @@ services:
     volumes:
       - ./backend:/usr/src/app
       - /usr/src/app/node_modules
+    env_file:
+      - .env
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
       - 9229:9229
     command: yarn start:dev
-    env_file:
-      - ./backend/env
     networks:
       - webnet
     depends_on:
-      - postgres
-  # redis:
-  #   container_name: redis
-  #   image: redis:5
-  #   networks:
-  #     - webnet
-  postgres:
-    container_name: postgres
-    image: postgres:12
+      - mysql
+
+  mysql:
+    container_name: mysql
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+    volumes:
+      - mysqldb:/var/lib/mysql
     networks:
       - webnet
-    environment:
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_DATABASE_NAME}
-      PG_DATA: /var/lib/postgresql/data
-    ports:
-      - 5432:5432
-    volumes:
-      - pgdata:/var/lib/postgresql/data
 
   frontend:
     stdin_open: true
@@ -51,7 +50,7 @@ services:
       - ./frontend:/usr/src/app
       - /usr/src/app/node_modules
     ports:
-      - '3000:3000'
+      - 3000:3000
     environment:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
@@ -63,4 +62,4 @@ services:
 networks:
   webnet:
 volumes:
-  pgdata:
+  mysqldb:
