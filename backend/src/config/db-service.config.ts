@@ -4,12 +4,22 @@ import { config } from 'dotenv';
 // @igor.t go three times back to .env file, or create 'shodow' .env file in the be folder
 config({ path: __dirname + './../../../.env' });
 
-// List of all current db's
+/**
+ * Enum types of current popular databases, if we like to make this config file more reusable tommorow
+ */
 enum dbTypes {
   'mysql' = 'mysql',
 }
 
-// @igor.t kind of reusable code to swap database, maybe with some strategy pattern or similar it can be achieve this
+/**
+ * Config service file for settng up and preparing the database
+ * Read data from .env file, can be refactored to support more db's
+ * for now is stick to ony one, also the .env keys can be more generic like DB_HOST, not MYSQL_DB_HOST
+ * It's checking if we are on production or not but can be develop more in that way
+ * Missing migration parts, also missing seeding of the database with some default values
+ * We can unit tests all public and private methods to be sure they produce valid returns
+ * If we don't have seed, maybe we can create some admins wuth unit testing
+ */
 class ConfigService {
   constructor(private env: { [k: string]: string | undefined }) {}
 

@@ -5,6 +5,15 @@ import { LoginAdminInput } from '../../auth/input/login-admin.input';
 import { CreateAdminInput } from '../../auth/input/create-admin.input';
 import { LoginAdminDTO } from '../../auth/dto/login-admin.dto';
 
+/**
+ * Because we have simple logic we don't place the logic for the code in different places like entites, services, domain objects etc...
+ * For now they sit on repository level as they have connection with reading and writing to/from data
+ * If we follow clean code guides repos needs to be clean and only find, read, write, update data etc
+ * All repors have only create operation and listAll like list all categories or create new category
+ * In future refactoring we can have update single item, delete all, delete single item etc...
+ * The logic is encapusalted in smaller functions to be reusable, and to be swapped in other folder tommorow if we doing refactoring
+ * We can unit testing the private functions that are more like util level functions, we can also the other functions bigger one and more concrete, but they used db so we need to mockup or leave it as integration testing
+ */
 @EntityRepository(User)
 export class UserRepository {
   constructor(private readonly manager: EntityManager) {}

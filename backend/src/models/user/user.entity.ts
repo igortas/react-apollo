@@ -4,7 +4,11 @@ import { BaseEntity } from '../base.entity';
 import { Performer } from '../performer/performer.entity';
 import { ObjectType, Field } from '@nestjs/graphql';
 
-// For now I ommit the indexes, but yes they are edge cases and as soon ar added much better, to help caching on some columns
+/**
+ * Entity table wrapper for creating on fly tables in db and also for simplicity all fields are exposed to be used by graphql
+ * Field decorator use parametherless format for @field() decorator when there is string
+ * Holds one to many relation to performers tables, one admin can create multiple performers
+ */
 @ObjectType()
 @Entity({ name: 'users' })
 export class User extends BaseEntity {

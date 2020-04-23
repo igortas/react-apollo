@@ -5,8 +5,10 @@ import { LoginAdminDTO } from './dto/login-admin.dto';
 import { LoginAdminInput } from './input/login-admin.input';
 
 /**
- * If we follow the CQRS pattern is best to have separate resolvers for commands and queries
- * On top of the resolvers we can use JWT decorator for side concerns, and to use sessions
+ * The main resolver with queries and mutation
+ * Every mutation is bind 1:1 to one service, as wrapper when executing code
+ * If tommorow we have many mutations and queries we can use something like CQRS to divide commands and queries in different resolvers
+ * Even if we use tommorow CQRS, with services as one more layer in code we still we have 1:1 relation from command resolver to service or query resolvers
  */
 @Resolver()
 export class AuthResolver {
@@ -17,10 +19,6 @@ export class AuthResolver {
     return await this.authService.loginAdmin(input);
   }
 
-  /**
-   * Args input can be of class CreateAdminInput, but for simplicity, I stick to use only DTO
-   * Even if I follow CQRS, still for simplicity I will return DTO
-   */
   @Mutation(() => LoginAdminDTO)
   async createAdmin(
     @Args('input') input: CreateAdminInput,

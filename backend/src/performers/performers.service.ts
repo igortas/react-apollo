@@ -6,6 +6,11 @@ import { PerformerRepository } from '../models/performer/performer.repository';
 import { CreateCategoryInput } from './input/crate-category.input';
 import { CreatePerfomerInput } from './input/create-performer.input';
 
+/**
+ * As described in all .resolvers files, service is in 1:1 relation
+ * It used because of best practices bulding software, it's thin layer below the resolver or controller if this is not graphql
+ * The service can do many things like injecting many different repos and entities and other objects if needed...
+ */
 @Injectable()
 export class PerformersService {
   constructor(
