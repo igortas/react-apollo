@@ -44,7 +44,7 @@ export class PerformerRepository {
     } = createPerformerInput;
 
     const performerFound = await this.manager.findOne(Performer, {
-      where: { user: { id: userId }, category: { id: categoryId } },
+      where: { name: name.toLowerCase(), age, category: { id: categoryId } },
     });
 
     if (performerFound) {

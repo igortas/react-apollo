@@ -2,9 +2,7 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { config } from 'dotenv';
 // @igor.t go three times back to .env file, or create 'shodow' .env file in the be folder
-// config({ path: '../../../.env' });
-// config({ path: '../../example.env' });
-require('dotenv').config({ path: __dirname + './../../example.env' });
+config({ path: __dirname + './../../../.env' });
 
 // List of all current db's
 enum dbTypes {
@@ -36,11 +34,11 @@ class ConfigService {
       host: this.getEnvValue('DB_HOST'),
       port: parseInt(this.getEnvValue('DB_PORT')),
       username: this.getEnvValue('MYSQL_USER'),
-      // password: this.getEnvValue('MYSQL_PASSWORD'),
+      password: this.getEnvValue('MYSQL_PASSWORD'),
       database: this.getEnvValue('MYSQL_DATABASE'),
-      synchronize: true,
-      logging: true,
-      entities: [__dirname + './../models/**/*.entity{.ts,.js}'],
+      synchronize: !this.isProduction(),
+      logging: !this.isProduction(),
+      entities: [__dirname + './../**/*.entity{.ts,.js}'],
       ssl: this.isProduction(),
     };
   }
