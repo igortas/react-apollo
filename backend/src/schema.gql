@@ -24,16 +24,17 @@ type User {
 }
 
 type LoginAdminDTO {
+  id: Int!
   email: String!
-  username: String!
-  password: String!
 }
 
 type CategoryDTO {
+  id: Int!
   name: String!
 }
 
 type PerformerDTO {
+  id: Int!
   performerName: String!
   performerAge: Int!
   categoryName: String!

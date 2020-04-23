@@ -9,16 +9,18 @@ export class PerformerRepository {
 
   async getPerformers(): Promise<PerformerDTO[]> {
     const performers = await this.manager.find(Performer, {
-      select: ['name', 'age', 'category'],
+      select: ['id', 'name', 'age', 'category'],
       relations: ['category'],
     });
 
     return performers.map(
       ({
+        id,
         name: performerName,
         age: performerAge,
         category: { name: categoryName },
       }) => ({
+        id,
         performerName,
         performerAge,
         categoryName,
@@ -45,8 +47,6 @@ export class PerformerRepository {
       where: { user: { id: userId }, category: { id: categoryId } },
     });
 
-    console.log('bbb', userId, categoryId, performerFound);
-
     if (performerFound) {
       throw new Error('Performer exists');
     }
@@ -58,8 +58,8 @@ export class PerformerRepository {
       category: { id: categoryId },
     });
     const res = await this.manager.save(performer);
-    console.log('234234234', performer);
     return {
+      id: res.id,
       performerName: name,
       performerAge: age,
       categoryName: categoryName,

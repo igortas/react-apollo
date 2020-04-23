@@ -13,7 +13,7 @@ export class UserRepository {
     email: CreateAdminInput['email'],
     username: CreateAdminInput['username'],
     password: CreateAdminInput['password'],
-  ): Promise<boolean> {
+  ): Promise<number> {
     const user = await this.manager.findOne(User, {
       where: [{ email }, { username }],
     });
@@ -22,10 +22,11 @@ export class UserRepository {
       throw new Error('User not found');
     }
 
-    return (
+    const userExists =
       (username === user.username || email === user.email) &&
-      (await compare(password, user.password))
-    );
+      (await compare(password, user.password));
+
+    return userExists ? user.id : 0;
   }
 
   private async hashPassword(password: User['password']): Promise<string> {
@@ -65,18 +66,22 @@ export class UserRepository {
         password: hashedPassword,
       });
       await this.manager.save(user);
-      return { email, username, password: hashedPassword };
+      return { id: user.id, email };
     } catch (err) {
       throw new Error(err.message);
     }
   }
 
   async login(loginAdminInput: LoginAdminInput): Promise<LoginAdminDTO> {
-    const { email, username = '', password } = loginAdminInput;
+    const { email, username, password } = loginAdminInput;
     if (!(await this.userExists(email, username, password))) {
       throw new Error('Email(username) / password does not match');
     }
 
-    return { email, username, password };
+    const user = await this.manager.findOne(User, {
+      where: [{ email }, { username }],
+    });
+
+    return { id: user.id, email };
   }
 }
