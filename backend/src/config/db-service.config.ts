@@ -1,7 +1,6 @@
 // src/config/config.service.ts
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { config } from 'dotenv';
-// @igor.t go three times back to .env file, or create 'shodow' .env file in the be folder
 config({ path: __dirname + './../../../.env' });
 
 /**
@@ -44,7 +43,7 @@ class ConfigService {
       host: this.getEnvValue('MYSQL_DB_HOST'),
       port: parseInt(this.getEnvValue('MYSQL_DB_PORT')),
       username: this.getEnvValue('MYSQL_USER'),
-      password: this.getEnvValue('MYSQL_PASSWORD'),
+      password: this.getEnvValue('MYSQL_PASSWORD', false),
       database: this.getEnvValue('MYSQL_DATABASE'),
       synchronize: !this.isProduction(),
       logging: !this.isProduction(),

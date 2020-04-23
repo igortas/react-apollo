@@ -14,7 +14,7 @@ The port for the api can be changed from .env file
 
 ##
 
-The mysql db works on port 3306. Enviroment variables for connecting are in .env file and can be changed.
+The mysql db works on port 3306. Enviroment variables for connecting are in .env file and can be changed. Database needs to be manually created or from mysql cli.
 
 ## Running the project with docker-compose
 

@@ -32,7 +32,7 @@ const Auth = () => {
     localStorage.getItem('login') === 'true'
   );
 
-  const [loginForm, { data, loading, error }] = useLazyQuery(LOGIN_ADMIN, {
+  const [loginForm, { loading, error }] = useLazyQuery(LOGIN_ADMIN, {
     onCompleted: (data) => localStorage.setItem('id', data.loginAdmin.id),
     onError: (error) =>
       setErrorMessage(
@@ -55,6 +55,7 @@ const Auth = () => {
     setLogout(localStorage.getItem('login') === 'true');
   };
 
+  console.log('2342332234', error);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Invalid username and password...</p>;
 
@@ -90,7 +91,6 @@ const Auth = () => {
         <br />
         {errorMessage ? <div>{errorMessage}</div> : ''}
       </Wrapper>
-      {data?.loginAdmin && localStorage.setItem('id', data.loginAdmin.id)}
     </>
   );
 };

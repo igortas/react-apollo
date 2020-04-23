@@ -91,8 +91,14 @@ const Performers = () => {
         name: performerName,
         age: performerAge,
         userId,
-        categoryId: category.categoryId,
-        categoryName: category.categoryName,
+        categoryId:
+          performerCategories?.getPerformersCategories?.length === 1
+            ? performerCategories?.getPerformersCategories[0].id
+            : category.categoryId,
+        categoryName:
+          performerCategories?.getPerformersCategories?.length === 1
+            ? performerCategories?.getPerformersCategories[0].name
+            : category.categoryName,
       },
     });
   };
@@ -143,7 +149,8 @@ const Performers = () => {
           <label>
             PerformerAge:{' '}
             <input
-              type='text'
+              type='number'
+              min='1'
               value={performerAge}
               onChange={(e) => setPerformerAge(Number(e.target.value))}
             />
