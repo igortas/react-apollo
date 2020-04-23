@@ -31,8 +31,8 @@ class ConfigService {
     return {
       // @igor.t somme issues when parsing directly as string
       type: dbTypes[this.getEnvValue('DB_TYPE')],
-      host: this.getEnvValue('DB_HOST'),
-      port: parseInt(this.getEnvValue('DB_PORT')),
+      host: this.getEnvValue('MYSQL_DB_HOST'),
+      port: parseInt(this.getEnvValue('MYSQL_DB_PORT')),
       username: this.getEnvValue('MYSQL_USER'),
       password: this.getEnvValue('MYSQL_PASSWORD'),
       database: this.getEnvValue('MYSQL_DATABASE'),

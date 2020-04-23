@@ -5,6 +5,12 @@ import gql from 'graphql-tag';
 
 import Wrapper from '../shared/wrapper.component';
 
+/**
+ * The description about my thinking for more improvments, fixes, testing etc, are exacty the same for this component as for the auth component
+ * Components so far are nearly same and they follow very similar structure that can be reduced to very wrapped smaller components that can be reused
+ * For more about the ideas I shared check the auth.component.jsx component
+ */
+
 export const GET_CATEGORIES = gql`
   query getPerformersCategories {
     getPerformersCategories {

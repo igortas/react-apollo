@@ -7,8 +7,11 @@ import * as serviceWorker from './serviceWorker';
 import { ApolloProvider } from '@apollo/react-hooks';
 import client from './apollo/apollo.config';
 
-// ReactDOM.render(<ApolloProvider client={client}><App /></ApolloProvider>, document.getElementById('root')
-
+/**
+ * This structure overal is good the app component is wrapped with browser route and with apollo providers
+ * Means that we can propage state to the App from the top components
+ * This task is simple, so I've ommit creating root top component for error boundaries...
+ */
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
