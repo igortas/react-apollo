@@ -8,6 +8,12 @@ Frontend app runs locally on localhost:3000
 
 Backend api runs locally on localhost:4000
 
+## For installing the dependencies u can use yarn for both frontend and backend folders:
+
+```bash
+yarn install or just yarn
+```
+
 ##
 
 The mysql db works on port 3306. Enviroment variables for connecting are in .env file and can be changed. Database needs to be manually created or from mysql cli or directly from some third party IDE.
